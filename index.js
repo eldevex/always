@@ -129,5 +129,20 @@ server.on('upgrade',function(req,socket,head){
   up.on('error',function(){try{socket.destroy();}catch(e){}});
   socket.on('error',function(){try{up.destroy();}catch(e){}});
 });
-var PORT=+(process.env.PORT||8080),IP=process.env.IP||'0.0.0.0';
-server.listen(PORT,IP,function(){console.log('app listening on '+IP+':'+PORT);});
+
+// ИЗМЕНЕНО ЗДЕСЬ: Более надежное получение порта
+const PORT = process.env.PORT || 8080;
+const IP = process.env.IP || '0.0.0.0';
+
+// Добавлена обработка ошибок сервера
+server.on('error', (err) => {
+  console.error('Ошибка сервера:', err);
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Порт ${PORT} уже занят!`);
+    process.exit(1);
+  }
+});
+
+server.listen(PORT, IP, function(){
+  console.log(`Приложение запущено на http://${IP}:${PORT}`);
+});
