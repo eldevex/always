@@ -1,0 +1,1 @@
+{"log":{"level":"warn"},"inbounds":[{"type":"vless","tag":"in","listen":"127.0.0.1","listen_port":10080,"users":[{"uuid":"1f63f353-01c1-4c6c-9761-5f64e5324cf2","flow":""}],"transport":{"type":"ws","path":"/api/state"}}],"outbounds":[{"type":"direct","tag":"direct"}]}
